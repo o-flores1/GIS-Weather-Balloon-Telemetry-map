@@ -32,3 +32,9 @@ The Java Simulation generateds the following data:
  - Real time telemetry streaming.
  - Improve user interactivity
  - Show flight path over time.
+
+## Images
+1 Minute Weather Balloon flight path <br>
+<img src = "https://github.com/o-flores1/GIS-Weather-Balloon-Telemetry-map/blob/6e403477f8d5010bdd78ec306f180379e7f9ec0d/GIS%20Images%20Weather%20Balloon/1minuteflightpath.png" width = "700">
+1 Minute Weather Balloon hover data values <br>
+<img src = "https://github.com/o-flores1/GIS-Weather-Balloon-Telemetry-map/blob/6e403477f8d5010bdd78ec306f180379e7f9ec0d/GIS%20Images%20Weather%20Balloon/1minHover.png" width = "700">
