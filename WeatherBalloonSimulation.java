@@ -10,8 +10,8 @@ import java.util.Random;
 public class WeatherBalloonSimulation {
     public static void main (String[] args) throws IOException { // Crashes the programs instead of making the user fix it.
         // Change Lat and Lon to specific cords.
-        double startLat = 34.2501;
-        double startLon = -119.0302;
+        double startLat = 34.1641;
+        double startLon = -119.0445;
         double ascentRate_mps = 5.0; // How fast the balloon rises in m/s.
         double maxAltitude_m = 32500.0; // Max altitude the balloon can burst at generally between [30 - 35] km
         int timeStepSec = 30; // Every time a data point is taken in seconds.
@@ -75,7 +75,7 @@ public class WeatherBalloonSimulation {
                 temperature += rnd.nextGaussian() * tempNoiseStd;
             }
 
-            // Uses Exponensial Pressure Drop Model, since pressure decreases as altitud increase.
+            // Uses Exponensial Pressure Drop Model [barometric formula], since pressure decreases as altitud increase.
             // 1013.25 is pressure at sea level & 8400.0 standard approximation of scale height
             double pressure = 1013.25 * Math.exp(- altitudeNoisy / 8400.0);
             if (addRandomNoise) {
