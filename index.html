@@ -36,7 +36,7 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="data/Paths_1.js"></script>
-        <script src="data/weather_balloon_telemetry_2.js"></script>
+        <script src="data/weather_balloon_telemetry_1min_2.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -56,7 +56,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[34.163643615894365,-119.04460592227623],[34.165571308317304,-119.04205507852625]]);
+        }).fitBounds([[34.16162057003425,-119.04562717816734],[34.17827620227576,-119.02358739894746]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -127,19 +127,19 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        map.createPane('pane_OSMStandard_0');
-        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
-        var layer_OSMStandard_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            pane: 'pane_OSMStandard_0',
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
             opacity: 1.0,
-            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
             minZoom: 1,
             maxZoom: 28,
             minNativeZoom: 0,
-            maxNativeZoom: 19
+            maxNativeZoom: 20
         });
-        layer_OSMStandard_0;
-        map.addLayer(layer_OSMStandard_0);
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
         function pop_Paths_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -177,11 +177,11 @@
             return {
                 pane: 'pane_Paths_1',
                 opacity: 1,
-                color: 'rgba(231,113,72,1.0)',
+                color: 'rgba(219,30,42,1.0)',
                 dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 1.0,
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -200,7 +200,7 @@
         });
         bounds_group.addLayer(layer_Paths_1);
         map.addLayer(layer_Paths_1);
-        function pop_weather_balloon_telemetry_2(feature, layer) {
+        function pop_weather_balloon_telemetry_1min_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -221,27 +221,19 @@
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">timestamp</th>\
-                        <td>' + (feature.properties['timestamp'] !== null ? autolinker.link(String(feature.properties['timestamp']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">latitude</th>\
-                        <td>' + (feature.properties['latitude'] !== null ? autolinker.link(String(feature.properties['latitude']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">longitude</th>\
-                        <td>' + (feature.properties['longitude'] !== null ? autolinker.link(String(feature.properties['longitude']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="timestamp">' + (feature.properties['timestamp'] !== null ? autolinker.link(String(feature.properties['timestamp']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">altitude_m</th>\
-                        <td>' + (feature.properties['altitude_m'] !== null ? autolinker.link(String(feature.properties['altitude_m']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="altitude_m">' + (feature.properties['altitude_m'] !== null ? autolinker.link(String(feature.properties['altitude_m']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">temperature_c</th>\
-                        <td>' + (feature.properties['temperature_c'] !== null ? autolinker.link(String(feature.properties['temperature_c']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="temperature_c">' + (feature.properties['temperature_c'] !== null ? autolinker.link(String(feature.properties['temperature_c']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">pressure_hpa</th>\
-                        <td>' + (feature.properties['pressure_hpa'] !== null ? autolinker.link(String(feature.properties['pressure_hpa']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="pressure_hpa">' + (feature.properties['pressure_hpa'] !== null ? autolinker.link(String(feature.properties['pressure_hpa']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -251,11 +243,11 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_weather_balloon_telemetry_2_0(feature) {
-            if (feature.properties['altitude_m'] >= -1.860000 && feature.properties['altitude_m'] <= 6497.858000 ) {
+        function style_weather_balloon_telemetry_1min_2_0(feature) {
+            if (feature.properties['altitude_m'] >= -0.380000 && feature.properties['altitude_m'] <= 6499.758000 ) {
                 return {
-                pane: 'pane_weather_balloon_telemetry_2',
-                radius: 10.0,
+                pane: 'pane_weather_balloon_telemetry_1min_2',
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -264,14 +256,14 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(111,214,255,1.0)',
+                fillColor: 'rgba(108,220,255,1.0)',
                 interactive: true,
             }
             }
-            if (feature.properties['altitude_m'] >= 6497.858000 && feature.properties['altitude_m'] <= 12997.576000 ) {
+            if (feature.properties['altitude_m'] >= 6499.758000 && feature.properties['altitude_m'] <= 12999.896000 ) {
                 return {
-                pane: 'pane_weather_balloon_telemetry_2',
-                radius: 10.0,
+                pane: 'pane_weather_balloon_telemetry_1min_2',
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -280,14 +272,14 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(183,225,128,1.0)',
+                fillColor: 'rgba(179,233,132,1.0)',
                 interactive: true,
             }
             }
-            if (feature.properties['altitude_m'] >= 12997.576000 && feature.properties['altitude_m'] <= 19497.294000 ) {
+            if (feature.properties['altitude_m'] >= 12999.896000 && feature.properties['altitude_m'] <= 19500.034000 ) {
                 return {
-                pane: 'pane_weather_balloon_telemetry_2',
-                radius: 10.0,
+                pane: 'pane_weather_balloon_telemetry_1min_2',
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -296,14 +288,14 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(255,236,1,1.0)',
+                fillColor: 'rgba(250,245,9,1.0)',
                 interactive: true,
             }
             }
-            if (feature.properties['altitude_m'] >= 19497.294000 && feature.properties['altitude_m'] <= 25997.012000 ) {
+            if (feature.properties['altitude_m'] >= 19500.034000 && feature.properties['altitude_m'] <= 26000.172000 ) {
                 return {
-                pane: 'pane_weather_balloon_telemetry_2',
-                radius: 10.0,
+                pane: 'pane_weather_balloon_telemetry_1min_2',
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -312,14 +304,14 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(255,118,0,1.0)',
+                fillColor: 'rgba(255,128,0,1.0)',
                 interactive: true,
             }
             }
-            if (feature.properties['altitude_m'] >= 25997.012000 && feature.properties['altitude_m'] <= 32496.730000 ) {
+            if (feature.properties['altitude_m'] >= 26000.172000 && feature.properties['altitude_m'] <= 32500.310000 ) {
                 return {
-                pane: 'pane_weather_balloon_telemetry_2',
-                radius: 10.0,
+                pane: 'pane_weather_balloon_telemetry_1min_2',
+                radius: 8.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -333,26 +325,26 @@
             }
             }
         }
-        map.createPane('pane_weather_balloon_telemetry_2');
-        map.getPane('pane_weather_balloon_telemetry_2').style.zIndex = 402;
-        map.getPane('pane_weather_balloon_telemetry_2').style['mix-blend-mode'] = 'normal';
-        var layer_weather_balloon_telemetry_2 = new L.geoJson(json_weather_balloon_telemetry_2, {
+        map.createPane('pane_weather_balloon_telemetry_1min_2');
+        map.getPane('pane_weather_balloon_telemetry_1min_2').style.zIndex = 402;
+        map.getPane('pane_weather_balloon_telemetry_1min_2').style['mix-blend-mode'] = 'normal';
+        var layer_weather_balloon_telemetry_1min_2 = new L.geoJson(json_weather_balloon_telemetry_1min_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_weather_balloon_telemetry_2',
-            layerName: 'layer_weather_balloon_telemetry_2',
-            pane: 'pane_weather_balloon_telemetry_2',
-            onEachFeature: pop_weather_balloon_telemetry_2,
+            dataVar: 'json_weather_balloon_telemetry_1min_2',
+            layerName: 'layer_weather_balloon_telemetry_1min_2',
+            pane: 'pane_weather_balloon_telemetry_1min_2',
+            onEachFeature: pop_weather_balloon_telemetry_1min_2,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_weather_balloon_telemetry_2_0(feature));
+                return L.circleMarker(latlng, style_weather_balloon_telemetry_1min_2_0(feature));
             },
         });
-        bounds_group.addLayer(layer_weather_balloon_telemetry_2);
-        map.addLayer(layer_weather_balloon_telemetry_2);
+        bounds_group.addLayer(layer_weather_balloon_telemetry_1min_2);
+        map.addLayer(layer_weather_balloon_telemetry_1min_2);
         setBounds();
         </script>        
     </body>

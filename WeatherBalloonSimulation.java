@@ -9,12 +9,12 @@ import java.util.Random;
 
 public class WeatherBalloonSimulation {
     public static void main (String[] args) throws IOException { // Crashes the programs instead of making the user fix it.
-        // Change Lat and Lon to specific cords.
+        // Change Lat and Lon to specific cords. (x , y)
         double startLat = 34.1641;
         double startLon = -119.0445;
         double ascentRate_mps = 5.0; // How fast the balloon rises in m/s.
         double maxAltitude_m = 32500.0; // Max altitude the balloon can burst at generally between [30 - 35] km
-        int timeStepSec = 30; // Every time a data point is taken in seconds.
+        int timeStepSec = 60; // Every time a data point is taken in seconds.
         int totalSecondsCap = 3 * 60 * 60; // How long the balloon is in the air for. This is for saftey purposes, so the simulation does not run infinitly.
         double descentMultiplier = 2.0; // Multiplier used along with ascent speed to simulate faster decent.
         double latDriftPerStep = 0.00008; // Uses the rough degree of latitude of 111 km to the equator, to calculate the smallest effect of wind on the balloon.
@@ -31,7 +31,7 @@ public class WeatherBalloonSimulation {
         int stepCaps = Math.max((int)(totalSecondsCap / (double) timeStepSec), 1000);
 
         // outputs CSV data which is read by the web map.
-        PrintWriter out = new PrintWriter(new FileWriter ("weather_balloon_telemetry.csv"));
+        PrintWriter out = new PrintWriter(new FileWriter ("weather_balloon_telemetry_1min.csv"));
         out.println("timestamp, latitude, longitude, altitude_m, temperature_c, pressure_hpa");
 
         /*==================States Predetermined Variables======================= */
