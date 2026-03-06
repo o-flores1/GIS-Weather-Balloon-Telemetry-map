@@ -1,0 +1,17 @@
+#files to be ignored by git because of the amount of things Java creates.
+
+# Compiled class files
+*.class
+
+# Logs
+*.log
+
+#VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+
+#Build folders
+bin/
+out/
