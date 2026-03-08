@@ -28,10 +28,11 @@ The Java Simulation generateds the following data:
   - Visual representation of balloons position over time.
   - Zoom controls
 
-## Things to improve
+## Things to improve / Potentional Applications
  - Real time telemetry streaming.
  - Improve user interactivity
  - Show flight path over time.
+ - Adapted for environmental monitoring.
 
 ## Images
 1 Minute Weather Balloon flight path <br>
