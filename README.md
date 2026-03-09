@@ -24,7 +24,7 @@ The Java Simulation generateds the following data:
 
  ## Web Map Feathers
   - Plots telemetry data points in 60 second intervals on a geographic map.
-  - "Hover" functionality to display corresponding data values.
+  - Hover functionality to display corresponding data values.
   - Visual representation of balloons position over time.
   - Zoom controls
 
